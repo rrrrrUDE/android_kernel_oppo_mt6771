@@ -865,7 +865,7 @@ static ssize_t kmalloc_used_read(struct file *file,
 		if (slab_size == 0)
 			continue;
 
-		len += scnprintf(&kbuf[len], 511 - len, "%-8u %lu\n",
+		len += scnprintf(&kbuf[len], 511 - len, "%-8lu %lu\n",
 				kmalloc_debug_info[i].size, slab_size >> 10);
 		if (len >= 511)
 			break;

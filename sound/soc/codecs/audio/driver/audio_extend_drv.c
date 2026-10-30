@@ -135,7 +135,7 @@ static int extend_codec_prop_parse(struct device *dev, const char *codec_prop[],
 
 	ret = of_property_count_strings(dev->of_node, codec_prop[CODEC_NAME]);
 	if (ret <= 0) {
-		pr_warn("%s: Invalid number of codecs, ret=%d\n",
+		pr_warn("%s: Invalid number of codecs in node %s, ret=%d\n",
 			__func__, dev->of_node->full_name, ret);
 		return -EINVAL;
 	} else {
@@ -190,7 +190,7 @@ static void extend_codec_be_dailink(struct codec_prop_info *codec_info, struct s
 	}
 
 	i2s_id = codec_info->i2s_id;
-	pr_info("%s: i2s_id=%d, size=%d!\n", __func__, i2s_id, size);
+	pr_info("%s: i2s_id=%d, size=%zu!\n", __func__, i2s_id, size);
 	if (i2s_id >= I2S_PROP_MAX) {
 		pr_err("%s: i2s_id param invalid!\n", __func__);
 		return;
@@ -198,7 +198,7 @@ static void extend_codec_be_dailink(struct codec_prop_info *codec_info, struct s
 
 	b_ivdata_support = codec_info->b_ivdata_support;
 	i2s_id_in = codec_info->i2s_id_in;
-	pr_info("%s: b_ivdata_support=%d, i2s_id_in=%d, size=%d!\n", __func__, b_ivdata_support, i2s_id_in, size);
+	pr_info("%s: b_ivdata_support=%d, i2s_id_in=%d, size=%zu!\n", __func__, b_ivdata_support, i2s_id_in, size);
 	if (i2s_id_in >= I2S_PROP_MAX) {
 		pr_err("%s: i2s_id param invalid!\n", __func__);
 		return;

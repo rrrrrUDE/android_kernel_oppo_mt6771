@@ -162,7 +162,7 @@ static int pm_qos_apu_memory_bandwidth_notify(struct notifier_block *b, unsigned
 }
 
 
-static void pm_qos_add_debug_notifiers()
+static void pm_qos_add_debug_notifiers(void)
 {
 	power_debug_info.pm_qos_cpu_dma_latency_nb.notifier_call = pm_qos_cpu_dma_latency_notify;
 	power_debug_info.pm_qos_memory_bandwidth_nb.notifier_call = pm_qos_memory_bandwidth_notify;
@@ -195,7 +195,7 @@ static void pm_qos_add_debug_notifiers()
 	pm_qos_add_notifier(PM_QOS_APU_MEMORY_BANDWIDTH, &power_debug_info.pm_qos_apu_memory_bandwidth_nb);
 }
 
-static void print_heavy_loads_tasks()
+static void print_heavy_loads_tasks(void)
 {
 	int i = 0;
 	for (; i < NUM_PRINT_HEAVY_LOAD_TASK; i++) {
@@ -211,7 +211,7 @@ static int cpustats_saved_comp(const void *a, const void *b)
 	const struct task_stat sb = *(const struct task_stat *)b;
 	return sb.pwr - sa.pwr;
 }
-static void parse_task_stats()
+static void parse_task_stats(void)
 {
 	int i = 0, num = 0;
 
@@ -236,7 +236,7 @@ static void parse_task_stats()
 	sort(cpustats_saved, num, sizeof(struct task_stat), cpustats_saved_comp, NULL);
 }
 
-static void task_power_stats()
+static void task_power_stats(void)
 {
 	int i, j;
 	unsigned long begin = jiffies - CTP_WINDOW_SZ * HZ, end = jiffies;
@@ -318,7 +318,7 @@ static void debug_power_timer_func(unsigned long data)
 		cpu_freq = cpufreq_quick_get(cpu) / 1000;
 		ts = tick_get_tick_sched(cpu);
 		sched_get_percpu_load2(cpu, 0, &load_rel, &load_abs);
-		POWER_TUNER_INFO("cpu_info(%d): %d(idle)\t%dMhz\t%u(rel)\t%u(abs)\t%d(util)\t%d(cap)\n",
+		POWER_TUNER_INFO("cpu_info(%d): %d(idle)\t%dMhz\t%u(rel)\t%u(abs)\t%lu(util)\t%lu(cap)\n",
 			cpu, ts->idle_active, cpu_freq, load_rel, load_abs, boosted_cpu_util(cpu), get_capacity_ac_freq(cpu, cpu_freq));
 	}
 	POWER_TUNER_INFO("gpu_dram_info %uMhz(gpu)\t%d(gpu_load)\t%d(ddr opp)\t%d(vcore opp)\t%d(uv)\n",
